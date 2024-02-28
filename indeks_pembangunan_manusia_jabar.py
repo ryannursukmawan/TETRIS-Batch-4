@@ -230,7 +230,7 @@ with Pendahuluan:
     st.write('Mengutip isi Human Development Report (HDR) pertama tahun 1990, pembangunan manusia adalah suatu proses untuk memperbanyak pilihan-pilihan yang dimiliki oleh manusia. Diantara banyak pilihan tersebut, pilihan yang terpenting adalah untuk berumur panjang dan sehat, untuk berilmu pengetahuan, dan untuk mempunyai akses terhadap sumber daya yang dibutuhkan agar dapat hidup secara layak. Indeks Pembangunan Manusia (IPM) mengukur capaian pembangunan manusia berbasis sejumlah komponen dasar kualitas hidup. Sebagai ukuran kualitas hidup, IPM dibangun melalui pendekatan tiga dimensi dasar. Dimensi tersebut mencakup umur panjang dan sehat; pengetahuan, dan kehidupan yang layak. Ketiga dimensi tersebut memiliki pengertian sangat luas karena terkait banyak faktor. ')
     st.header('Batasan Masalah')
     st.write('1. Data ini diambil melalui Open Data Jabar yaitu Portal Data resmi Pemerintah Provinsi Jawa Barat dan juga Badan Pusat Statistik yaitu Portal Data resmi Pemerintah Pusat.')
-    st.write ('2. Analisis ini hanya membahas seputar Indeks Pembangunan Manusia di Jawa Barat Tahun 2010-2023.')    
+    st.write ('2. Analisis ini hanya membahas seputar Indeks Pembangunan Manusia di Jawa Barat dan Bodebek Tahun 2010-2023.')    
     st.header('Tujuan Analisis')
     st.write('1. Mengukur Keberhasilan Pembangunan Manusia')
     st.write('Dengan melihat nilai Indeks Pembangunan Manusia (IPM), kita dapat mengetahui tingkat kemajuan pembangunan manusia di suatu wilayah dibandingkan dengan wilayah lain atau dibandingkan dengan waktu sebelumnya.')
