@@ -190,7 +190,8 @@ with Analisa:
         ax.set_xlabel("Kota")
         ax.set_ylabel("IPM")
         st.pyplot(fig)
-        
+
+    st.write('karena p-value < 0,05 sebagai tingkat kepercayaan, maka kami menolak H Kesimpulan : setidaknya ada satu kelompok yang memiliki perbedaan angka IPM yang signifikan Kemungkinan penyebabnya : terdapat perbedaan faktor yang mempengaruhi IPM di setiap kota atau kabupaten di Jawa Barat')
     st.write('Insight : Berdasarkan Boxplot dibawah, bisa di terjemahkan ada perbedaan yang signifikan antara Kabupaten/Kota yang satu dan yang lainnya di wilayah Bodebek.')
     st.write('Possible Cause : Kemungkinan adanya penyebab perbedaan siginifikan Indeks Pembangunan Manusia di Bodebek perlu kita lakukan lebih lanjut mengenai faktor penyebabnya. Kita bisa mengira faktor tersebut antara lain: Korelasi Pendiidikan, Kepadatan Penduduk, Ekonomi, Kesenjangan Sosial.')
     
