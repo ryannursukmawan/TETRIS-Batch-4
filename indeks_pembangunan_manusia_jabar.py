@@ -50,8 +50,8 @@ with Analisa:
         # Menambahkan judul
         plt.title('Indeks Pembangunan Manusia Terbaik Jawa Barat 2010-2023')
         # Menambahkan label pada sumbu x dan y
-        plt.xlabel('Nama Kota Kabupaten')
-        plt.ylabel('Indeks Pembangunan Manusia')
+        plt.xlabel('Indeks Pembangunan Manusia')
+        plt.ylabel('Nama Kabupaten Kota')
         
         df_ipm = pd.read_csv("ipm_jabar_terbawah.csv")
         # Buat plot
@@ -62,8 +62,8 @@ with Analisa:
         # Menambahkan judul
         plt.title('Indeks Pembangunan Manusia Terburuk di Jawa Barat 2010-2023')
         # Menambahkan label pada sumbu x dan y
-        plt.xlabel('Nama Kota Kabupaten')
-        plt.ylabel('Indeks Pembangunan Manusia')
+        plt.xlabel('Indeks Pembangunan Manusia')
+        plt.ylabel('Nama Kabupaten Kota')
 
         col1, col2 = st.columns(2)
         with col1:
