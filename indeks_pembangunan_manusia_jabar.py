@@ -1,4 +1,3 @@
-from lib2to3.pgen2.token import PERCENT
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -32,7 +31,7 @@ stringInfo1 = '''
 st.sidebar.info(stringInfo1)
     
 # Buat pilihan tab
-Analisa, Pendahuluan = st.tabs(["Analisa", "Pendahuluan"])
+Pendahuluan, Jawa_Barat, Analisa   = st.tabs(["Pendahuluan","Jawa Barat", "Analisa" ])
 
 # Tampilkan konten di tab
 with Analisa:
@@ -248,3 +247,10 @@ with Pendahuluan:
     st.write('2.Mengevaluasi efektivitas kebijakan pembangunan yang telah dijalankan.')
     st.write('3.Menentukan target peningkatan IPM di masa depan.')
     st.write('4.Meningkatkan kesadaran masyarakat tentang pentingnya pembangunan manusia.')
+    
+with Jawa_Barat:
+    #Buat Pivot Table Jabar
+    df_jabar = pd.read_csv("pivot_table_jabar.csv")
+    st.write(df_jabar)
+    st.subheader("Menilik Lebih dalam Kabupaten/Kota di Jawa Barat Berdasarkan Tahun")
+    
