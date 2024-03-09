@@ -5,6 +5,8 @@ import seaborn as sns
 import plotly.express as px
 import numpy as np
 import altair as alt
+import squarify
+import random
 
 st.set_page_config(
      page_title = 'Indeks Pembangunan Manusia'
@@ -31,11 +33,10 @@ stringInfo1 = '''
 st.sidebar.info(stringInfo1)
     
 # Buat pilihan tab
-Pendahuluan, Jawa_Barat, Analisa   = st.tabs(["Pendahuluan","Jawa Barat", "Analisa" ])
+Pendahuluan, Jawa_Barat, Analisa, Kesimpulan   = st.tabs(["Pendahuluan","Jawa Barat", "Analisa", "Kesimpulan" ])
 
 # Tampilkan konten di tab
 with Analisa:
-    st.write('Penulis: Ryan Nursukmawan')
     st.header("Menelusuri Indeks Pembangunan Manusia Terbaik dan Terbawah Jawa Barat")
      
     if modeWarna =='JAWA BARAT':
@@ -47,7 +48,7 @@ with Analisa:
         ipm = df_ipm['indeks_pembangunan_manusia'].tolist()
         ax_11.barh(nama_kabupaten_kota, ipm)
         # Menambahkan judul
-        plt.title('Indeks Pembangunan Manusia Terbaik Jawa Barat 2010-2023')
+        plt.title('Indeks Pembangunan Manusia Terbaik Jawa Barat Berdasarkan Ranking')
         # Menambahkan label pada sumbu x dan y
         plt.xlabel('Indeks Pembangunan Manusia')
         plt.ylabel('Nama Kabupaten Kota')
@@ -59,7 +60,7 @@ with Analisa:
         ipm = df_ipm['indeks_pembangunan_manusia'].tolist()
         ax_21.barh(nama_kabupaten_kota, ipm)
         # Menambahkan judul
-        plt.title('Indeks Pembangunan Manusia Terburuk di Jawa Barat 2010-2023')
+        plt.title('Indeks Pembangunan Manusia Terburuk di Jawa Barat Berdasarkan Ranking')
         # Menambahkan label pada sumbu x dan y
         plt.xlabel('Indeks Pembangunan Manusia')
         plt.ylabel('Nama Kabupaten Kota')
@@ -79,7 +80,7 @@ with Analisa:
         ipm = df_ipm['indeks_pembangunan_manusia'].tolist()
         ax_31.barh(df_ipm["nama_kabupaten_kota"], df_ipm["indeks_pembangunan_manusia"], color=["#808080", "#808080", "#3366cc", "#808080", "#808080"])
         # Menambahkan judul
-        plt.title('Indeks Pembangunan Manusia Terbaik Jawa Barat 2010-2023')
+        plt.title('Indeks Pembangunan Manusia Terbaik Jawa Barat')
         # Menambahkan label pada sumbu x dan y
         plt.xlabel('Nama Kota Kabupaten')
         plt.ylabel('Indeks Pembangunan Manusia')
@@ -92,7 +93,7 @@ with Analisa:
         ax_41.barh(nama_kabupaten_kota, ipm)
         # Menambahkan judul
         plt.figure(figsize=(8, 5))
-        plt.title('Indeks Pembangunan Manusia Terburuk di Jawa Barat 2010-2023')
+        plt.title('Indeks Pembangunan Manusia Terburuk di Jawa Barat')
         # Menambahkan label pada sumbu x dan y
         plt.xlabel('Nama Kota Kabupaten')
         plt.ylabel('Indeks Pembangunan Manusia')
@@ -103,16 +104,56 @@ with Analisa:
         with col2 :
             st.pyplot(fig_41)    
 
-    st.write("Berdasarkan data, Kota Bandung menduduki puncak dengan IPM tertinggi di Jawa Barat, yaitu 80,23. Diikuti oleh Kota Bekasi 80,06 dan Kota Depok 79,57. Ketiga kota ini menunjukkan pencapaian yang baik dalam pembangunan manusia. Secara keseluruhan, IPM di Jawa Barat menunjukkan tren positif. Mayoritas kota mengalami peningkatan nilai IPM dibandingkan tahun sebelumnya. Hal ini mencerminkan upaya pemerintah dalam meningkatkan kualitas hidup masyarakat di seluruh wilayah. Meskipun menunjukkan kemajuan, disparitas antar kota masih terlihat. Kabupaten Pangandaran masih tertinggal dengan nilai IPM 52,74. Hal ini menunjukkan perlunya fokus dan perhatian lebih untuk mendorong pembangunan di daerah tertinggal. memotret deretan daerah dengan Indeks Pembangunan Manusia (IPM) terendah. Data ini menjadi cerminan bagi upaya pembangunan yang perlu diintensifkan untuk mencapai kesejahteraan yang merata.")
+    st.write("Berdasarkan Grafik Aggregasi diatas, Kota Bandung menduduki puncak dengan IPM tertinggi di Jawa Barat, yaitu 80,23. Diikuti oleh Kota Bekasi 80,06 dan Kota Depok 79,57. Ketiga kota ini menunjukkan pencapaian yang baik dalam pembangunan manusia. Secara keseluruhan, IPM di Jawa Barat menunjukkan tren positif. Mayoritas kota mengalami peningkatan nilai IPM dibandingkan tahun sebelumnya. Hal ini mencerminkan upaya pemerintah dalam meningkatkan kualitas hidup masyarakat di seluruh wilayah. Meskipun menunjukkan kemajuan, disparitas antar kota masih terlihat. Kabupaten Pangandaran masih tertinggal dengan nilai IPM 52,74. Hal ini menunjukkan perlunya fokus dan perhatian lebih untuk mendorong pembangunan di daerah tertinggal. memotret deretan daerah dengan Indeks Pembangunan Manusia (IPM) terendah. Data ini menjadi cerminan bagi upaya pembangunan yang perlu diintensifkan untuk mencapai kesejahteraan yang merata.")
 
-    st.markdown('### Menelusuri Jejak IPM di Kota Depok')
+    st.header('Menelusuri IPM Kota Bandung')
+    
+    df_bandung = pd.read_csv('lineplot_kota_bandung.csv')
+    #Buat Plot untuk Kota Bandung dengan Matplotlib
+    plt.figure(figsize=(8, 5))
+    plt.plot(df_bandung['tahun'], df_bandung['indeks_pembangunan_manusia'])
+    plt.xlabel('Tahun')
+    plt.ylabel('Indeks Pembangunan Manusia')
+    plt.title('Line Plot Indeks Pembangunan Manusia Kota Bandung Tahun 2010-2023')
+    # Tampilkan plot di Streamlit
+    col1, col2 = st.columns(2)
+    with col1:
+        st.pyplot(plt)
+    
+    st.write('Secara umum, IPM Kota Bandung mengalami tren kenaikan yang stabil, dari tahun 2010 hingga 2023.'
+             'Kenaikan IPM ini menunjukkan bahwa pembangunan manusia di Kota Bandung terus meningkat'
+             'Pada tahun 2010, IPM Kota Bandung berada pada angka 77,49.'
+             'Pada tahun 2023, IPM Kota Bandung mencapai angka 83,04.'
+             'Kenaikan IPM ini menunjukkan bahwa Kota Bandung telah mencapai kategori "Sangat Tinggi" dalam pembangunan manusia.')
+    
+    st.header('Menelusuri IPM Kabupaten Pangandaran')
+    
+    df_pangandaran = pd.read_csv('lineplot_kab_pangandaran.csv')
+    #Buat Plot untuk Kabupaten Pangandaran menggunakan Matplotlib
+    plt.figure(figsize=(8, 5))
+    plt.plot(df_pangandaran['tahun'], df_pangandaran['indeks_pembangunan_manusia'])
+    plt.xlabel('Tahun')
+    plt.ylabel('Indeks Pembangunan Manusia')
+    plt.title('Line Plot Indeks Pembangunan Manusia Kabupaten Pangandaran Tahun 2010-2023')
+    # Tampilkan plot di Streamlit
+    col1, col2 = st.columns(2)
+    with col1:
+        st.pyplot(plt)
+        
+    st.write('Secara umum, IPM Kabupaten Pangandaran mengalami tren kenaikan yang stabil dari tahun 2010 hingga 2023.'
+             'Kenaikan IPM ini menunjukkan bahwa pembangunan manusia di Kabupaten Pangandaran terus meningkat.'
+             'Pada tahun 2013, Mengapa data awal Kabupaten Pangandaran 2013? karena Kabupaten ini beridiri pada tanggal 25 Oktober 2012. IPM Kabupaten Pangandaran berada pada angka 64,73.'
+             'Pada tahun 2023, IPM Kabupaten Pangandaran mencapai angka 69,38.'
+             'Walaupun tergolong belum lama berdiri menunjukkan bahwa Kabupaten Pangandaran telah mencapai kategori "Tinggi" dalam pembangunan manusia.')
+    
+    st.header(' Menelusuri Jejak IPM di Kota Depok')
 
     df_depok = pd.read_csv('lineplot_depok.csv')
-    # Buat plot dengan Matplotlib
+    # Buat plot untuk Kota Depok dengan Matplotlib
     plt.figure(figsize=(8, 5))
-    plt.plot(df_depok['indeks_pembangunan_manusia'], df_depok['tahun'])
-    plt.xlabel('Indeks Pembangunan Manusia')
-    plt.ylabel('Tahun')
+    plt.plot(df_depok['tahun'], df_depok['indeks_pembangunan_manusia'])
+    plt.xlabel('Tahun')
+    plt.ylabel('Indeks Pembangunan Manusia')
     plt.title('Line Plot Indeks Pembangunan Manusia Kota Depok 2010-2023')
     # Tampilkan plot di Streamlit
     col1, col2 = st.columns(2)
@@ -193,34 +234,6 @@ with Analisa:
     st.write('karena p-value < 0,05 sebagai tingkat kepercayaan, maka kami menolak H Kesimpulan : setidaknya ada satu kelompok yang memiliki perbedaan angka IPM yang signifikan Kemungkinan penyebabnya : terdapat perbedaan faktor yang mempengaruhi IPM di setiap kota atau kabupaten di Jawa Barat')
     st.write('Insight : Berdasarkan Boxplot dibawah, bisa di terjemahkan ada perbedaan yang signifikan antara Kabupaten/Kota yang satu dan yang lainnya di wilayah Bodebek.')
     st.write('Possible Cause : Kemungkinan adanya penyebab perbedaan siginifikan Indeks Pembangunan Manusia di Bodebek perlu kita lakukan lebih lanjut mengenai faktor penyebabnya. Kita bisa mengira faktor tersebut antara lain: Korelasi Pendiidikan, Kepadatan Penduduk, Ekonomi, Kesenjangan Sosial.')
-    
-    st.markdown('### Faktor yang mempengaruhi Indeks Pembangunan Manusia')
-    st.write('Berdasarkan Sumber Jurnal yang penulis dapatkan ada beberapa faktor yang mempengaruhi besar kecil nya Indeks Pembangunan Manusia di suatu daerah yaitu Pendidikan[[1]]( https://journal.ipb.ac.id/index.php/jekp/article/viewFile/19949/13741), Kesehatan[[2]]( https://ejurnalunsam.id/index.php/jse/article/view/2303), Ekonomi[[3]]( https://repository.ipb.ac.id/handle/123456789/88680), Pemerataan Pembangunan[[4]]( https://jimfeb.ub.ac.id/index.php/jimfeb/article/download/5339/4697)')
-
-    st.markdown('### Apa yang bisa di tingkatkatkan untuk indeks pembangunan manusia di Bodebek maupun Jawa Barat?')
-    st.write(' **Membangun Fondasi yang Kuat:**' )
-    st.write('Berdasarkan data Indeks Pembangunan Manusia (IPM) di Bodebek (Kota/Kabupaten Bogor, Depok, Kota/KabupatenBekasi) dan Jawa Barat, terdapat beberapa aspek yang perlu ditingkatkan untuk mencapai kemajuan yang signifikan:')
-    st.write('1. Pendidikan:')
-    st.write ('-Meningkatkan akses pendidikan berkualitas di semua tingkatan, termasuk pendidikan anak usia dini.')
-    st.write ('-Memperkuat program pelatihan dan pemagangan untuk meningkatkan keterampilan tenaga kerja.')
-    st.write ('-Menyediakan beasiswa bagi siswa berprestasi dan kurang mampu.')
-    st.write('2. Kesehatan')
-    st.write('-Meningkatkan akses dan kualitas layanan kesehatan, termasuk di daerah pedesaan.')
-    st.write('-Memperkuat program promotif dan preventif untuk menjaga kesehatan masyarakat.')
-    st.write ('-Meningkatkan jumlah tenaga kesehatan dan fasilitas kesehatan.')
-    st.write ('3. Ekonomi')
-    st.write ('-Menciptakan lapangan kerja yang berkualitas dan berdaya saing.')
-    st.write ('-Meningkatkan pendapatan masyarakat melalui program pemberdayaan ekonomi.')
-    st.write('-Memperkuat infrastruktur ekonomi, seperti jalan, jembatan, dan pelabuhan.')
-    st.write('4. Pemerataan pembangunan')
-    st.write ('-Mengurangi kesenjangan pembangunan antar wilayah, terutama antara daerah urban dan rural.')
-    st.write('-Memberikan perhatian khusus pada daerah tertinggal dalam hal pendidikan, kesehatan, dan ekonomi.')
-    st.write('-Meningkatkan koordinasi dan sinergi antar pemangku kepentingan dalam pembangunan daerah.')
-    st.write('**Langkah Strategis**')
-    st.write('-Pemerintah: Merumuskan kebijakan dan program yang fokus pada peningkatan IPM, dengan memperhatikan kesenjangan antar wilayah.')
-    st.write('-Masyarakat: Berpartisipasi aktif dalam program pembangunan dan meningkatkan kualitas hidup.')
-    st.write('-Swasta: Bekerjasama dengan pemerintah dan masyarakat dalam program pembangunan, seperti melalui CSR dan program pemberdayaan masyarakat.')
-    st.write('Dengan meningkatkan upaya di bidang-bidang tersebut, diharapkan IPM di Bodebek dan Jawa Barat dapat terus meningkat dan mencapai tingkat yang optimal. Hal ini akan mewujudkan masyarakat yang lebih sejahtera, adil, dan berdaya saing.')
 
 # Tampilkan konten di tab
 with Pendahuluan:
@@ -249,8 +262,251 @@ with Pendahuluan:
     st.write('4.Meningkatkan kesadaran masyarakat tentang pentingnya pembangunan manusia.')
     
 with Jawa_Barat:
+    
+    st.markdown('### Indeks Pembangunan Manusia Jawa Barat berdasarkan Kabupaten dan Kota Tahun 2013-2023')
     #Buat Pivot Table Jabar
     df_jabar = pd.read_csv("pivot_table_jabar.csv")
-    st.write(df_jabar)
-    st.subheader("Menilik Lebih dalam Kabupaten/Kota di Jawa Barat Berdasarkan Tahun")
+    # Sidebar Content
+    tahun = st.selectbox(
+        "Tahun",
+        ("2023","2022","2021","2020","2019","2018","2017","2016","2015","2014","2013")
+    )
+    #2023
+    if tahun == "2023":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2023 = df_jabar['2023']
+        data_2023, nama_kab_kota = zip(*sorted(zip(data_2023, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2023)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2023, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2023", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)
     
+    
+    #2022
+    elif tahun == "2022":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2022 = df_jabar['2022']
+        data_2022, nama_kab_kota = zip(*sorted(zip(data_2022, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2022)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2022, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2022", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)    
+    
+    #2021
+    elif tahun == "2021":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2021 = df_jabar['2021']
+        data_2021, nama_kab_kota = zip(*sorted(zip(data_2021, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2021)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2021, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2021", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)    
+        
+    #2020
+    elif tahun == "2020":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2020 = df_jabar['2020']
+        data_2020, nama_kab_kota = zip(*sorted(zip(data_2020, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2020)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2020, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2020", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt) 
+        
+    #2019
+    elif tahun == "2019":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2019 = df_jabar['2019']
+        data_2019, nama_kab_kota = zip(*sorted(zip(data_2019, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2019)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2019, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2019", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)
+        
+    #2018
+    elif tahun == "2018":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2018 = df_jabar['2018']
+        data_2018 , nama_kab_kota = zip(*sorted(zip(data_2018, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2018)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2018, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2018", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)     
+    
+    #2017
+    elif tahun == "2017":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2017 = df_jabar['2017']
+        data_2017 , nama_kab_kota = zip(*sorted(zip(data_2017, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2017)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2017, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2017", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)     
+    
+    #2016
+    elif tahun == "2016":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2016 = df_jabar['2016']
+        data_2016 , nama_kab_kota = zip(*sorted(zip(data_2016, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2016)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2016, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2016", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)     
+    
+    #2015
+    elif tahun == "2015":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2015 = df_jabar['2015']
+        data_2015 , nama_kab_kota = zip(*sorted(zip(data_2015, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2015)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2015, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2015", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)     
+    
+    #2014
+    elif tahun == "2014":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2014 = df_jabar['2014']
+        data_2014 , nama_kab_kota = zip(*sorted(zip(data_2014, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2014)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2014, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2014", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt)     
+    
+    #2013
+    elif tahun == "2013":
+        # # AWAL Membuat TREEMAP
+        nama_kab_kota = df_jabar['nama_kabupaten_kota']
+        data_2013 = df_jabar['2013']
+        data_2013 , nama_kab_kota = zip(*sorted(zip(data_2013, nama_kab_kota), reverse=False))
+        result = list(map(lambda x: (x[0], x[1]), zip(nama_kab_kota, data_2013)))
+        # Membuat warna acak untuk setiap label
+        color_map = {}
+        for kab_kota in nama_kab_kota:
+            color_map[kab_kota] = f"#{random.randint(0, 0xFFFFFF):06x}"
+
+        # Membuat treemap
+        plt.figure(figsize=(8, 6))
+        squarify.plot(sizes=data_2013, label=result,color=[color_map[kab_kota] for kab_kota in nama_kab_kota], alpha=0.7,  text_kwargs={'fontsize':3})
+        # Menambahkan label
+        plt.title("Indeks Pembangunan Manusia per Tahun 2013", fontsize = 8)
+        plt.axis('off')
+        # Menampilkan plot
+        st.pyplot(plt) 
+        
+        
+    st.write("Grafik diatas menggunakan Treemap dimana menyajikan poin Indeks Pembangunan Manusia Jawa Barat Tahun 2013-2023. Dikarenakan Kabupaten Pangandara baru berdiri di Tahun 2012 jadi data nya tidak ada dan penulis memulai dari tahun 2013 agar semua Kabupaten dan Kota tersedia data nya")
+    
+    with Kesimpulan:
+        
+        st.header('Kesimpulan IPM Jawa Barat 2010-2023')
+        st.write('Secara keseluruhan, IPM Jawa Barat mengalami peningkatan yang signifikan dari tahun 2010 ke 2023. Pada tahun 2010, IPM Jawa Barat adalah 66,15, dan pada tahun 2023 mencapai 73,74. Hal ini menunjukkan bahwa pembangunan manusia di Jawa Barat telah berjalan dengan baik. Meskipun IPM Jawa Barat meningkat, masih terdapat ketimpangan antar wilayah. Kota-kota besar seperti Bandung, Bekasi, dan Depok memiliki IPM yang lebih tinggi dibandingkan dengan kabupaten-kabupaten di Jawa Barat.')
