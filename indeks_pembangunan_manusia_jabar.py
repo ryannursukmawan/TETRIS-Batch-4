@@ -539,5 +539,11 @@ with Jawa_Barat:
         
         st.header('Kesimpulan IPM Jawa Barat 2010-2023')
         st.write('Secara keseluruhan, IPM Jawa Barat mengalami peningkatan yang signifikan dari tahun 2010 ke 2023. Pada tahun 2010, IPM Jawa Barat adalah 66,15, dan pada tahun 2023 mencapai 73,74. Hal ini menunjukkan bahwa pembangunan manusia di Jawa Barat telah berjalan dengan baik. Meskipun IPM Jawa Barat meningkat, masih terdapat ketimpangan antar wilayah. Kota-kota besar seperti Bandung, Bekasi, dan Depok memiliki IPM yang lebih tinggi dibandingkan dengan kabupaten-kabupaten di Jawa Barat.')
-        st.image("ipm_jabar_2022_2023.png", caption="Indeks Pembangunan Manusia menurut Provinsi, 2022-2023", width=700)
+        kol1, kol2, kol3 = st.columns(3)
+        with kol1:
+            st.write(' ')
+        with kol2:
+            st.image("ipm_jabar_2022_2023.png", caption="Indeks Pembangunan Manusia menurut Provinsi, 2022-2023", width=700)
+        with kol3:
+            st.write(' ')
        
