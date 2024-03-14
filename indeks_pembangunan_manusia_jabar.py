@@ -261,7 +261,37 @@ with Pendahuluan:
     st.write('4.Meningkatkan kesadaran masyarakat tentang pentingnya pembangunan manusia.')
     
 with Jawa_Barat:
-    
+
+     # Memuat data
+    pivot_table_path = 'pivot_table_jabar.csv'
+    data = pd.read_csv('pivot_table_jabar.csv')
+
+    # Aplikasi Streamlit
+    st.title('Tren IPM Kabupaten/Kota di Jawa Barat 2010-2023')
+
+    # Memilih kabupaten/kota untuk ditampilkan
+    selected_kabupaten_kota = st.multiselect('Pilih Kabupaten/Kota:', options=data['nama_kabupaten_kota'].unique())
+
+    # Menyiapkan data untuk plotting
+    filtered_data = data[data['nama_kabupaten_kota'].isin(selected_kabupaten_kota)]
+
+    # Membuat plot jika ada kabupaten/kota yang dipilih
+    if not filtered_data.empty:
+        plt.figure(figsize=(10, 6))
+        for _, row in filtered_data.iterrows():
+            plt.plot(row.index[1:], row.values[1:], marker='o', label=row['nama_kabupaten_kota'])
+        
+        plt.title('Tren IPM dari Tahun ke Tahun')
+        plt.xlabel('Tahun')
+        plt.ylabel('IPM')
+        plt.xticks(rotation=45)
+        plt.legend()
+        plt.grid(True)
+        
+        st.pyplot(plt)
+    else:
+        st.write("Silakan pilih satu atau lebih kabupaten/kota untuk menampilkan tren IPM.")
+     
     st.markdown('### Indeks Pembangunan Manusia Jawa Barat berdasarkan Kabupaten dan Kota Tahun 2013-2023')
     #Buat Pivot Table Jabar
     df_jabar = pd.read_csv("pivot_table_jabar.csv")
@@ -509,35 +539,3 @@ with Jawa_Barat:
         
         st.header('Kesimpulan IPM Jawa Barat 2010-2023')
         st.write('Secara keseluruhan, IPM Jawa Barat mengalami peningkatan yang signifikan dari tahun 2010 ke 2023. Pada tahun 2010, IPM Jawa Barat adalah 66,15, dan pada tahun 2023 mencapai 73,74. Hal ini menunjukkan bahwa pembangunan manusia di Jawa Barat telah berjalan dengan baik. Meskipun IPM Jawa Barat meningkat, masih terdapat ketimpangan antar wilayah. Kota-kota besar seperti Bandung, Bekasi, dan Depok memiliki IPM yang lebih tinggi dibandingkan dengan kabupaten-kabupaten di Jawa Barat.')
-
-        #IPM Jabar 2010
-        st.header('IPM Jawa Barat Tahun 2010')
-
-        # Memuat data
-        df = pd.read_csv('IPM_Jabar_2010.csv')
-
-        # Membuat boxplot
-        plt.figure(figsize=(14, 8))
-        sns.boxplot(x='indeks_pembangunan_manusia', y='nama_kabupaten_kota', data=df, showfliers=False)
-        sns.swarmplot(x='indeks_pembangunan_manusia', y='nama_kabupaten_kota', data=df, color=".25")
-        plt.xlabel('Indeks Pembangunan Manusia (IPM)')
-        plt.title('Boxplot IPM per Kabupaten/Kota di Jawa Barat Tahun 2023')
-
-        # Menampilkan boxplot di Streamlit
-        st.pyplot(plt)
-        
-        #IPM Jabar 2023
-        st.header('IPM Jawa Barat Tahun 2023')
-
-        # Memuat data
-        df = pd.read_csv('IPM_2023_Jabar.csv')
-
-        # Membuat boxplot
-        plt.figure(figsize=(14, 8))
-        sns.boxplot(x='indeks_pembangunan_manusia', y='nama_kabupaten_kota', data=df, showfliers=False)
-        sns.swarmplot(x='indeks_pembangunan_manusia', y='nama_kabupaten_kota', data=df, color=".25")
-        plt.xlabel('Indeks Pembangunan Manusia (IPM)')
-        plt.title('Boxplot IPM per Kabupaten/Kota di Jawa Barat Tahun 2023')
-
-        # Menampilkan boxplot di Streamlit
-        st.pyplot(plt)
