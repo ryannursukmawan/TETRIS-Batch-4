@@ -284,7 +284,7 @@ with Jawa_Barat:
         plt.title('Tren IPM dari Tahun ke Tahun')
         plt.xlabel('Tahun')
         plt.ylabel('IPM')
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=30)
         plt.legend()
         plt.grid(True)
         
