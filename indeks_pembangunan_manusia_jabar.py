@@ -292,7 +292,7 @@ with Jawa_Barat:
     else:
         st.write("Silakan pilih satu atau lebih kabupaten/kota untuk menampilkan tren IPM.")
 
-    st.write('Grafik diatas berisi Lineplot Tren Kabupaten Kota di Jawa Barat 2010-2023')
+    st.write('Grafik diatas berisi Lineplot Tren Kabupaten Kota di Jawa Barat 2010-2023.')
      
     st.markdown('### Indeks Pembangunan Manusia Jawa Barat berdasarkan Kabupaten dan Kota Tahun 2013-2023')
     #Buat Pivot Table Jabar
