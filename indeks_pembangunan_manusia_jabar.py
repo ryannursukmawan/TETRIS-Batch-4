@@ -277,7 +277,7 @@ with Jawa_Barat:
 
     # Membuat plot jika ada kabupaten/kota yang dipilih
     if not filtered_data.empty:
-        plt.figure(figsize=(8, 5))
+        plt.figure(figsize=(10, 4))
         for _, row in filtered_data.iterrows():
             plt.plot(row.index[1:], row.values[1:], marker='o', label=row['nama_kabupaten_kota'])
         
